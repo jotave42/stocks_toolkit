@@ -6,6 +6,7 @@ const runProgram = (proc, path)=>{
         const program = spawn(proc,[path],{stdio: 'inherit'});
         program.on('close', (code) => {
             console.log(proc+" "+path +" finished with code: " + code);
+            resolve()
         });
       
        
@@ -39,6 +40,7 @@ const  main = async () =>{
        await runGetStockPrice();
     } else {
         await runCompaniesDowloader();
+        console.log("acabei");
         await runGetStockPrice();
     }
     console.log("All Done index...");

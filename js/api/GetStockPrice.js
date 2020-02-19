@@ -36,7 +36,6 @@ const getStockPrice = async (dir,jsonCompanies) => {
 const main = async ()=>{
     console.log("GetStockPrice.js Started...");
     const projectFolder = __dirname.split("js")[0];
-    console.log(projectFolder);
     const today = new Date();
     today.setDate(today.getDate());
     let todayStr = today.toISOString().split('T')[0];
