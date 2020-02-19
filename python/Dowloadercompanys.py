@@ -45,9 +45,9 @@ def downloadCompanisFile():
     sourceEncoding = "cp1252"
     targetEncoding = "utf-8"
 
-    creatDirIfNotExist(".\Downloads\AllCompanies\CSV")
+    creatDirIfNotExist(".\..\Downloads\AllCompanies\CSV")
 
-    fileCsvLocation = "./Downloads/AllCompanies/CSV/"+fileName
+    fileCsvLocation = "./../Downloads/AllCompanies/CSV/"+fileName
     with open(fileCsvLocation, 'wb') as f:
         f.write(str(resDowload.content,sourceEncoding).encode(targetEncoding))
     return (fileCsvLocation, todayStr)
@@ -74,9 +74,9 @@ def craeteCompanisJson(fileCsvLocation):
 
 def saveCompanisJson(stocksByCompany,todayStr):
     
-    creatDirIfNotExist(".\Downloads\AllCompanies\JSON")
+    creatDirIfNotExist(".\..\Downloads\AllCompanies\JSON")
 
-    jsonfileLocation = "./Downloads/AllCompanies/JSON/companies-"+todayStr+".json"
+    jsonfileLocation = "./../Downloads/AllCompanies/JSON/companies-"+todayStr+".json"
     print("Saving json on: ", jsonfileLocation)
     with open(jsonfileLocation, 'w', encoding='utf-8') as jsonFile:
         json.dump(stocksByCompany, jsonFile, ensure_ascii=False, indent=4)

@@ -1,0 +1,23 @@
+{
+  "name": "stocks_toolkit",
+  "version": "1.0.0",
+  "description": "The goal of this project is making tools that will help people to understand the stock market. Disclaimer this project is made by people how want to practice their programming skills.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jotave42/stocks_toolkit.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jotave42/stocks_toolkit/issues"
+  },
+  "homepage": "https://github.com/jotave42/stocks_toolkit#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0"
+  }
+}

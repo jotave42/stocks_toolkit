@@ -34,18 +34,18 @@ const main = async ()=>{
     const today = new Date();
     today.setDate(today.getDate());
     let todayStr = today.toISOString().split('T')[0];
-    let fileJsonCompanies ='./../Downloads/AllCompanies/JSON/companies-'+todayStr+'.json';
+    let fileJsonCompanies ='./../../Downloads/AllCompanies/JSON/companies-'+todayStr+'.json';
     console.log("Trying Open: ",fileJsonCompanies);
 
     while (!fs.existsSync(fileJsonCompanies)){
         today.setDate(today.getDate()-1);
         todayStr =  today.toISOString().split('T')[0];
-        fileJsonCompanies ='./../Downloads/AllCompanies/JSON/companies-'+todayStr+'.json';
+        fileJsonCompanies ='./../../Downloads/AllCompanies/JSON/companies-'+todayStr+'.json';
         console.log("Trying Open: ",fileJsonCompanies);
     }
     
     const jsonCompanies = require(fileJsonCompanies);
-    const dir = "./../Downloads/Companies/"+todayStr;
+    const dir = "./../../Downloads/Companies/"+todayStr;
 
     if (!fs.existsSync(dir)){
     
