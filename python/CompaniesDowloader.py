@@ -9,7 +9,7 @@ def creatDirIfNotExist(dirLocation):
     if not os.path.exists(dirLocation):
         os.makedirs(dirLocation, exist_ok=True)
 
-def downloadCompanisFile():
+def downloadCompanisFile(scriptFolder):
 
     today = date.today()
     todayStr = today.strftime("%Y-%m-%d")
@@ -45,9 +45,9 @@ def downloadCompanisFile():
     sourceEncoding = "cp1252"
     targetEncoding = "utf-8"
 
-    creatDirIfNotExist(".\..\Downloads\AllCompanies\CSV")
+    creatDirIfNotExist(scriptFolder+"Downloads\AllCompanies\CSV\\"+todayStr)
 
-    fileCsvLocation = "./../Downloads/AllCompanies/CSV/"+fileName
+    fileCsvLocation = scriptFolder+"Downloads\AllCompanies\CSV\\"+todayStr+"\\"+fileName
     with open(fileCsvLocation, 'wb') as f:
         f.write(str(resDowload.content,sourceEncoding).encode(targetEncoding))
     return (fileCsvLocation, todayStr)
@@ -72,24 +72,26 @@ def craeteCompanisJson(fileCsvLocation):
         }
     return stocksByCompany
 
-def saveCompanisJson(stocksByCompany,todayStr):
+def saveCompanisJson(stocksByCompany,todayStr,scriptFolder):
     
-    creatDirIfNotExist(".\..\Downloads\AllCompanies\JSON")
+    creatDirIfNotExist(scriptFolder+"Downloads\AllCompanies\JSON")
 
-    jsonfileLocation = "./../Downloads/AllCompanies/JSON/companies-"+todayStr+".json"
+    jsonfileLocation = scriptFolder+"Downloads\AllCompanies\JSON\companies-"+todayStr+".json"
     print("Saving json on: ", jsonfileLocation)
     with open(jsonfileLocation, 'w', encoding='utf-8') as jsonFile:
         json.dump(stocksByCompany, jsonFile, ensure_ascii=False, indent=4)
-    print("Json saved")
+    print("Json saved on: "+jsonfileLocation)
     return True
 
 def main():
-    
-    fileCsvLocation, todayStr = downloadCompanisFile()
+    print("CompaniesDowloader.py Started...")
+    scriptFolder = os.path.abspath(__file__).split('pytho')[0]
+    fileCsvLocation, todayStr = downloadCompanisFile(scriptFolder)
 
     stocksByCompany = craeteCompanisJson(fileCsvLocation)
     
-    if(saveCompanisJson(stocksByCompany, todayStr)):
-        print("All done...")
-    
+    if(saveCompanisJson(stocksByCompany, todayStr, scriptFolder)):
+        print("All done, CompaniesDowloader Finished...")
+
+
 main()
