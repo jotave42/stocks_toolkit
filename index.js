@@ -3,8 +3,8 @@ const {spawn} = require("child_process")
 
 const runProgram = (proc, path)=>{
     return  new Promise((resolve, reject) =>{
-        const pythonProcess = spawn(proc,[path],{stdio: 'inherit'});
-        pythonProcess.on('close', (code) => {
+        const program = spawn(proc,[path],{stdio: 'inherit'});
+        program.on('close', (code) => {
             console.log(proc+" "+path +" finished with code: " + code);
         });
       

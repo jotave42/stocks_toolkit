@@ -3,9 +3,9 @@ const fetch = require("node-fetch");
 
 const getStockPrice = async (dir,jsonCompanies) => {
 
-    return  new Promise((resolve, reject) =>{
         const b3Api = "http://cotacao.b3.com.br/mds/api/v1/DailyFluctuationHistory/";
         const stocks = Object.keys(jsonCompanies);
+        const  stocksProcesses = 
         stocks.map( async (stockId)=>{
             const company = jsonCompanies[stockId];
             const fileName = dir+"/"+stockId+".json";
@@ -15,22 +15,23 @@ const getStockPrice = async (dir,jsonCompanies) => {
                 "SpcfctnCd" : company.SpcfctnCd,
                 "SctyCtgyNm" : company.SctyCtgyNm
             };
-            fetch(`${b3Api}${stockId}`,).then( async (res) => {
+            return fetch(`${b3Api}${stockId}`,).then( async (res) => {
                 const data = await res.json()
                 if (!res.ok){
                     throw new Error(await res.text());
                 }
                 StockObject.stockPrice = data.TradgFlr.scty.lstQtn;
-                fs.writeFile(fileName,JSON.stringify(StockObject,null,4),()=>{
-                    console.log("saved file: ",fileName);
-                })
+                
+                fs.writeFileSync(fileName,JSON.stringify(StockObject,null,4));
+                console.log("saved file: ",fileName);
 
             }).catch((err) => {
                 console.log(err);
             });
             
         });
-    });
+        await Promise.all(stocksProcesses);
+    
 };
 const main = async ()=>{
     console.log("GetStockPrice.js Started...");
